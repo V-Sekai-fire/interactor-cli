@@ -1,0 +1,4 @@
+# cli is the DRIVING adapter: it wires a mesh_source -> retarget core -> mesh_sink.
+weftfit/retarget   # the core + port contracts it drives
+weftfit/stage      # OpenUSD source/sink adapter it composes
+weftfit/obj        # OBJ source/sink adapter it composes
