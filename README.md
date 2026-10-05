@@ -14,7 +14,7 @@ mix deps.get
 mix cloth_fit.build_native
 ```
 
-The last task builds the solver's static libraries and the NIF in one step.
+The last task builds the solver's static libraries and the NIF in one step. It configures the solver from the CMake project at the root of the `cloth-fit` checkout, which still provides the C++ solver, so the native build runs only from there.
 
 ## Licence
 
