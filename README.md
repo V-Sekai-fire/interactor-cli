@@ -1,22 +1,21 @@
-# weftfit/cli
+# interactor-cli
 
-The **driving adapter** for weftfit: an Elixir CLI (`fit` / `validate-*` /
-`info-*` / `version`) that drives the `retarget` core through the mesh ports and
-ships as a single self-contained **Burrito** binary — no runtime toolchain.
+A command-line driver that fits a garment mesh onto an avatar with a finite-element solver, packaged as one self-contained binary.
 
-- **`app/`** — the mix project. The solver is exposed as a **Fine NIF**
-  (`c_src/cloth_fit_cli/polyfem.cpp`), packaged per-target with Burrito;
-  `mix cloth_fit.build_native` builds the static PolyFEM + NIF; with
-  `CLOTH_FIT_WITH_USD=1` it bundles the **weftfit/stage** adapter (`cloth_fit_usd`
-  bridge + `usd_ms` + plugins) into `priv/`.
-- **`ports/`** — the port contracts it composes.
+## What it is for
 
-Wiring (hexagonal): `cli` selects a **source** adapter (OBJ or OpenUSD) to read
-the garment/avatar/skeletons, runs the **retarget** core, and fans the per-step
-output to one or more **sink** adapters (OBJ, OpenUSD, later viewer) in one pass.
+It is weftfit's driving adapter. It reads the garment, avatar and skeletons through a mesh source adapter, runs the retarget core, and writes each step through one or more mesh sink adapters. The solver runs as a C++ NIF.
 
-## Migration status (from `cloth-fit`)
+## Build and run
 
-`app/` is lifted from `V-Sekai-fire/cloth-fit/cloth_fit_cli`. Remaining: point the
-NIF/build at the sibling `weftfit/{retarget,stage,obj}` repos instead of the
-in-tree `src/` (currently the monolith still provides the C++ solver + adapters).
+```sh
+cd app
+mix deps.get
+mix cloth_fit.build_native
+```
+
+The last task builds the solver's static libraries and the NIF in one step.
+
+## Licence
+
+MIT; see LICENSE.
